@@ -109,14 +109,32 @@ def has_github_pages(owner, name):
         pass
     return os.path.exists("docs/") or os.path.exists("mkdocs.yml")
 
+def has_tags(owner, name):
+    token = os.environ.get("GITHUB_TOKEN")
+    url = f"https://api.github.com/repos/{owner}/{name}/tags"
+    req = urllib.request.Request(url)
+    req.add_header("User-Agent", "Add-Badges-Action")
+    if token:
+        req.add_header("Authorization", f"token {token}")
+    try:
+        with urllib.request.urlopen(req, timeout=5) as response:
+            tags = json.loads(response.read().decode())
+            return isinstance(tags, list) and len(tags) > 0
+    except Exception as e:
+        print(f"Error checking tags for {owner}/{name}: {e}")
+        return False
+
 def get_applicable_badges():
     owner, name = get_repo_info()
     branch = get_default_branch()
     badges = []
 
-    v = detect_version()
-    if v:
-        badges.append(f"![Version](https://img.shields.io/badge/version-{v}-blue)")
+    if has_tags(owner, name):
+        badges.append(f"[![Version](https://img.shields.io/github/v/tag/{owner}/{name}?label=version)](https://github.com/{owner}/{name}/tags)")
+    else:
+        v = detect_version()
+        if v:
+            badges.append(f"![Version](https://img.shields.io/badge/version-{v}-blue)")
 
     if is_python_repo():
         pv = detect_python_version() or "3.8+"
@@ -162,6 +180,13 @@ def update_readme():
     with open(filepath, "r") as f:
         content = f.read()
 
+    original_content = content
+    # Replacement logic for version badge
+    version_pattern = re.compile(r'(!\[Version\]\(https://img\.shields\.io/badge/version-.*?\)|\[!\[Version\]\(https://img\.shields\.io/github/v/tag/.*?\)\]\(.*?\))')
+    new_version_badge = next((b for b in available_badges if "![Version]" in b), None)
+    if new_version_badge and version_pattern.search(content):
+        content = version_pattern.sub(new_version_badge, content)
+
     missing_badges = []
     for badge in available_badges:
         match = re.search(r'\!\[.*?\]\((.*?)\)', badge)
@@ -183,8 +208,8 @@ def update_readme():
         if unique_part not in content:
             missing_badges.append(badge)
 
-    if not missing_badges:
-        print("No missing badges to add.")
+    if not missing_badges and content == original_content:
+        print("No missing badges to add and no updates needed.")
         return
 
     lines = content.splitlines()
@@ -213,7 +238,14 @@ def update_readme():
 
     with open(filepath, "w") as f:
         f.write("\n".join(lines) + "\n")
-    print(f"Added {len(missing_badges)} badges.")
+
+    messages = []
+    if missing_badges:
+        messages.append(f"Added {len(missing_badges)} badges")
+    if content != original_content:
+        messages.append("updated existing badges")
+    if messages:
+        print(". ".join(messages).capitalize() + ".")
 
 if __name__ == "__main__":
     update_readme()

@@ -20,6 +20,7 @@ runs:
       shell: bash
       env:
         GITHUB_REPOSITORY: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ inputs.github_token }}
 
     - name: Commit and push changes
       run: |
