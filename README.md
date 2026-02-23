@@ -22,4 +22,4 @@ jobs:
           fetch-depth: 0
 
       - name: Run Auto Versioning
-        uses: your-org/auto-version-action@v1 # Point to your central repo'''
+        uses: dgaida/auto-version-action@v1´´´
