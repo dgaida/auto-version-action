@@ -1,0 +1,29 @@
+name: 'Auto Versioning Action'
+description: 'Increments version in pyproject.toml and creates a git tag'
+author: 'Daniel Gaida'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Increment version
+      run: python ${{ github.action_path }}/increment_version.py
+      shell: bash
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add pyproject.toml
+        git commit -m "chore: increment version [skip ci]"
+        git push origin ${{ github.event.pull_request.base.ref }}
+        
+        # Extract new version and create tag
+        NEW_VERSION=$(grep '^version = "' pyproject.toml | cut -d'"' -f2)
+        git tag v$NEW_VERSION
+        git push origin v$NEW_VERSION
+      shell: bash
