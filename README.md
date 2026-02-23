@@ -42,7 +42,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Add Badges
-        uses: dgaida/auto-version-action@master
+        uses: dgaida/auto-version-action@main
 ```
 
 ---
@@ -61,6 +61,7 @@ on:
     types: [closed]
     branches:
       - master
+      - main
 
 jobs:
   versioning:
@@ -76,7 +77,7 @@ jobs:
           fetch-depth: 0
 
       - name: Run Auto Versioning
-        uses: dgaida/auto-version-action/auto-version@master
+        uses: dgaida/auto-version-action/auto-version@main
 ```
 
 ## How it works
