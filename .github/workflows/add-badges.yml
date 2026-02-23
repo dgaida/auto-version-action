@@ -13,4 +13,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Add Badges
-        uses: dgaida/auto-version-action@master
+        uses: dgaida/auto-version-action@main

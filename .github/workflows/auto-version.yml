@@ -4,6 +4,7 @@ on:
     types: [closed]
     branches:
       - master
+      - main
 
 jobs:
   versioning:
@@ -19,4 +20,4 @@ jobs:
           fetch-depth: 0
 
       - name: Run Auto Versioning
-        uses: dgaida/auto-version-action/auto-version@master
+        uses: dgaida/auto-version-action/auto-version@main
