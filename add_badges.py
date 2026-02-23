@@ -20,14 +20,17 @@ def detect_version():
                 for line in f:
                     if line.strip().startswith("version ="):
                         match = re.search(r'version = "(.*?)"', line)
-                        if match: return match.group(1)
-        except: pass
+                        if match:
+                            return match.group(1)
+        except Exception:
+            pass
     if os.path.exists("package.json"):
         try:
             with open("package.json", "r") as f:
                 data = json.load(f)
                 return data.get("version")
-        except: pass
+        except Exception:
+            pass
     return None
 
 def detect_python_version():
@@ -39,7 +42,8 @@ def detect_python_version():
                 if match:
                     v = match.group(1).replace(">=", "").replace(">", "").strip()
                     return f"{v}+"
-        except: pass
+        except Exception:
+            pass
     return None
 
 def is_python_repo():
@@ -53,7 +57,8 @@ def has_mit_license():
                     content = file.read()
                     if "MIT License" in content or "MIT LICENSE" in content:
                         return True
-            except: pass
+            except Exception:
+                pass
     return False
 
 def uses_codecov():
@@ -66,7 +71,8 @@ def uses_codecov():
                     with open(os.path.join(".github/workflows", f), "r") as file:
                         if "codecov/codecov-action" in file.read():
                             return True
-        except: pass
+        except Exception:
+            pass
     return False
 
 def has_workflow(wf_name):
@@ -76,16 +82,20 @@ def uses_black():
     if os.path.exists("pyproject.toml"):
         try:
             with open("pyproject.toml", "r") as f:
-                if "[tool.black]" in f.read(): return True
-        except: pass
+                if "[tool.black]" in f.read():
+                    return True
+        except Exception:
+            pass
     return False
 
 def uses_ruff():
     if os.path.exists("pyproject.toml"):
         try:
             with open("pyproject.toml", "r") as f:
-                if "[tool.ruff]" in f.read(): return True
-        except: pass
+                if "[tool.ruff]" in f.read():
+                    return True
+        except Exception:
+            pass
     return os.path.exists("ruff.toml") or os.path.exists(".ruff.toml")
 
 def has_github_pages(owner, name):
@@ -93,8 +103,10 @@ def has_github_pages(owner, name):
     try:
         req = urllib.request.Request(url, method='HEAD')
         with urllib.request.urlopen(req, timeout=2) as resp:
-            if resp.status == 200: return True
-    except: pass
+            if resp.status == 200:
+                return True
+    except Exception:
+        pass
     return os.path.exists("docs/") or os.path.exists("mkdocs.yml")
 
 def get_applicable_badges():
@@ -111,7 +123,7 @@ def get_applicable_badges():
         badges.append(f"[![Python](https://img.shields.io/badge/python-{pv}-blue.svg)](https://www.python.org/downloads/)")
 
     if has_mit_license():
-        badges.append(f"[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)")
+        badges.append("[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)")
 
     if uses_codecov():
         badges.append(f"[![codecov](https://codecov.io/gh/{owner}/{name}/branch/{branch}/graph/badge.svg)](https://codecov.io/gh/{owner}/{name})")
@@ -126,10 +138,10 @@ def get_applicable_badges():
         badges.append(f"[![CodeQL](https://github.com/{owner}/{name}/actions/workflows/codeql.yml/badge.svg)](https://github.com/{owner}/{name}/actions/workflows/codeql.yml)")
 
     if uses_black():
-        badges.append(f"[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)")
+        badges.append("[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)")
 
     if uses_ruff():
-        badges.append(f"[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)")
+        badges.append("[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)")
 
     if has_github_pages(owner, name):
         badges.append(f"[![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://{owner}.github.io/{name}/)")
@@ -153,7 +165,8 @@ def update_readme():
     missing_badges = []
     for badge in available_badges:
         match = re.search(r'\!\[.*?\]\((.*?)\)', badge)
-        if not match: continue
+        if not match:
+            continue
         img_url = match.group(1)
 
         # Determine unique part of the URL to check for existence

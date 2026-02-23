@@ -8,6 +8,9 @@ This repository provides useful GitHub Actions for repository maintenance.
 ![Version](https://img.shields.io/badge/version-0.1.0-blue)
 [![Python](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![Code Quality](https://github.com/dgaida/auto-version-action/actions/workflows/lint.yml/badge.svg)](https://github.com/dgaida/auto-version-action/actions/workflows/lint.yml)
+[![Tests](https://github.com/dgaida/auto-version-action/actions/workflows/tests.yml/badge.svg)](https://github.com/dgaida/auto-version-action/actions/workflows/tests.yml)
+[![CodeQL](https://github.com/dgaida/auto-version-action/actions/workflows/codeql.yml/badge.svg)](https://github.com/dgaida/auto-version-action/actions/workflows/codeql.yml)
 
 
 ## Actions
@@ -77,7 +80,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.base.ref }}
           fetch-depth: 0
 
       - name: Run Auto Versioning
