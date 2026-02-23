@@ -1,0 +1,35 @@
+name: 'Add Badges'
+description: 'Automatically adds relevant badges to the README.md file'
+author: 'Daniel Gaida'
+inputs:
+  github_token:
+    description: 'GitHub token for authentication'
+    required: false
+    default: ${{ github.token }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Run add_badges script
+      run: python ${{ github.action_path }}/add_badges.py
+      shell: bash
+      env:
+        GITHUB_REPOSITORY: ${{ github.repository }}
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        if [ -n "$(git status --porcelain)" ]; then
+          git add README.md
+          git commit -m "chore: add badges to README.md [skip ci]"
+          git push
+        else
+          echo "No changes to commit"
+        fi
+      shell: bash
