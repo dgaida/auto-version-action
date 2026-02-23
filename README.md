@@ -86,5 +86,42 @@ jobs:
         uses: dgaida/auto-version-action/auto-version@main
 ```
 
+### 3. If you want to have both, then use (otherwise both actions run at the same time and you have a conflict because both are pushing):
+
+```yaml 
+name: Auto Versioning & Badges
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - master
+      - main
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  versioning-and-badges:
+    if: github.event.pull_request.merged == true || github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Auto Versioning
+        if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+        uses: dgaida/auto-version-action/auto-version@main
+
+      - name: Add Badges
+        uses: dgaida/auto-version-action@main
+```
+
 ## How it works
 The actions use Python scripts to analyze the repository state and modify files accordingly. Changes are then automatically committed and pushed back to the repository.
