@@ -12,3 +12,5 @@ dist/
 .pytest_cache/
 .coverage
 htmlcov/
+*.egg-info/
+.ruff_cache/
