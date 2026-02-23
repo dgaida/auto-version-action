@@ -2,6 +2,10 @@
 
 This repository provides useful GitHub Actions for repository maintenance.
 
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/dgaida/auto-version-action/graphs/commit-activity)
+![Last commit](https://img.shields.io/github/last-commit/dgaida/auto-version-action)
+
+
 ## Actions
 
 ### 1. Add Badges
