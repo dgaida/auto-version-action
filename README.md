@@ -58,7 +58,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Auto Version and Badges
-        uses: dgaida/auto-version-action@v1
+        uses: dgaida/auto-version-action@main  # You can also use a specific tag like @v0.1.4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           auto-version: true
@@ -83,7 +83,7 @@ If you prefer to run them separately or on different events, you can still do so
 
 ```yaml
       - name: Add Badges
-        uses: dgaida/auto-version-action@v1
+        uses: dgaida/auto-version-action@main
         with:
           auto-version: false
           create-badge: true
@@ -93,7 +93,7 @@ If you prefer to run them separately or on different events, you can still do so
 
 ```yaml
       - name: Auto Versioning
-        uses: dgaida/auto-version-action@v1
+        uses: dgaida/auto-version-action@main
         with:
           auto-version: true
           create-badge: false
