@@ -13,115 +13,91 @@ This repository provides useful GitHub Actions for repository maintenance.
 [![CodeQL](https://github.com/dgaida/auto-version-action/actions/workflows/codeql.yml/badge.svg)](https://github.com/dgaida/auto-version-action/actions/workflows/codeql.yml)
 
 
-## Actions
+## Features
+
+This action provides two main functionalities that can be used independently or together:
 
 ### 1. Add Badges
+Automatically detects repository features and adds relevant badges to your `README.md`. It checks for:
+- **Version**: From `pyproject.toml` or `package.json`.
+- **Python Version**: From `pyproject.toml`.
+- **License**: MIT license detection.
+- **Codecov**: Integration detection.
+- **GitHub Workflows**: Badges for `lint`, `tests`, and `codeql`.
+- **Code Style**: `black` or `ruff`.
+- **Documentation**: GitHub Pages or `docs/` folder.
+- **Maintenance**: Status and last commit.
 
-Automatically detects repository features and adds relevant badges to your `README.md`.
-
-#### Features
-It checks for and adds the following badges if they apply:
-- **Version**: Detects version from `pyproject.toml` or `package.json`.
-- **Python Version**: Detects required Python version.
-- **License**: Adds MIT license badge if an MIT license is detected.
-- **Codecov**: Adds badge if Codecov is used.
-- **GitHub Workflows**: Adds badges for `lint`, `tests`, and `codeql` workflows if they exist.
-- **Code Style**: Adds badges for `black` or `ruff` if they are used.
-- **Documentation**: Adds a Docs badge if GitHub Pages is enabled or a `docs/` folder exists.
-- **Maintenance**: Adds badges for maintenance status and last commit.
-
-#### Usage
-Create a workflow file (e.g., `.github/workflows/add-badges.yml`):
-
-```yaml
-name: Add Badges
-on:
-  push:
-    branches: [master, main]
-
-jobs:
-  add-badges:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Add Badges
-        uses: dgaida/auto-version-action@main
-```
+### 2. Auto Versioning
+Increments the version number in `pyproject.toml` (patch level, with overflow to minor and major) and creates a corresponding Git tag.
 
 ---
 
-### 2. Auto Versioning
+## Usage
 
-Increments the version number in `pyproject.toml` and creates a corresponding Git tag.
+The simplest way is to use the combined action.
 
-#### Usage
-Create a workflow file (e.g., `.github/workflows/auto-version.yml`):
+### Combined Action (Recommended)
+
+Create a workflow file (e.g., `.github/workflows/auto-version-badges.yml`):
 
 ```yaml
-name: Auto Versioning
+name: Auto Version and Badges
+
 on:
-  pull_request:
-    types: [closed]
-    branches:
-      - master
-      - main
+  push:
+    branches: [main, master]
 
 jobs:
-  versioning:
-    if: github.event.pull_request.merged == true
+  version-and-badges:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Run Auto Versioning
-        uses: dgaida/auto-version-action/auto-version@main
+      - name: Auto Version and Badges
+        uses: dgaida/auto-version-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-version: true
+          create-badge: true
 ```
 
-### 3. If you want to have both, then use (otherwise both actions run at the same time and you have a conflict because both are pushing):
+### Inputs
 
-```yaml 
-name: Auto Versioning & Badges
-on:
-  pull_request:
-    types: [closed]
-    branches:
-      - master
-      - main
-  push:
-    branches:
-      - master
-      - main
+| Input | Description | Default |
+|-------|-------------|---------|
+| `github-token` | GitHub token for authentication | `${{ github.token }}` |
+| `auto-version` | Whether to automatically increment the version | `true` |
+| `create-badge` | Whether to automatically add/update badges | `true` |
 
-jobs:
-  versioning-and-badges:
-    if: github.event.pull_request.merged == true || github.event_name == 'push'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+---
 
-      - name: Run Auto Versioning
-        if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
-        uses: dgaida/auto-version-action/auto-version@main
+## Separate Usage
 
+If you prefer to run them separately or on different events, you can still do so.
+
+### Only Add Badges
+
+```yaml
       - name: Add Badges
-        uses: dgaida/auto-version-action@main
+        uses: dgaida/auto-version-action@v1
+        with:
+          auto-version: false
+          create-badge: true
+```
+
+### Only Auto Versioning
+
+```yaml
+      - name: Auto Versioning
+        uses: dgaida/auto-version-action@v1
+        with:
+          auto-version: true
+          create-badge: false
 ```
 
 ## How it works
-The actions use Python scripts to analyze the repository state and modify files accordingly. Changes are then automatically committed and pushed back to the repository.
+The actions use Python scripts to analyze the repository state and modify files accordingly. Changes are then automatically committed and pushed back to the repository in a single step to avoid conflicts.
