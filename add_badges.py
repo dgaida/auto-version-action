@@ -6,7 +6,7 @@ import json
 def get_repo_info():
     full_repo = os.environ.get("GITHUB_REPOSITORY")
     if not full_repo or "/" not in full_repo:
-        return "dgaida", "robot_mcp"
+        return "dgaida", "auto-version-action"
     owner, name = full_repo.split("/")
     return owner, name
 
