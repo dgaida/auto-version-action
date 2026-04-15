@@ -28,6 +28,9 @@ Automatically detects repository features and adds relevant badges to your `READ
 - **Documentation**: GitHub Pages or `docs/` folder.
 - **Maintenance**: Status and last commit.
 
+### 3. Markdown List Fixer
+Ensures that Markdown list items and the lines preceding them end with two spaces. This ensures that they are correctly rendered with a line break in many Markdown viewers.
+
 ### 2. Auto Versioning
 Increments the version number in `pyproject.toml` (patch level, with overflow to minor and major) and creates a corresponding Git tag.
 
@@ -72,6 +75,7 @@ jobs:
 | `github-token` | GitHub token for authentication | `${{ github.token }}` |
 | `auto-version` | Whether to automatically increment the version | `true` |
 | `create-badge` | Whether to automatically add/update badges | `true` |
+| `md-list-fix` | Whether to automatically fix Markdown lists | `true` |
 | `run-on-push` | Whether to run on push events (outside of PRs) | `true` |
 
 ---
@@ -102,3 +106,14 @@ If you prefer to run them separately or on different events, you can still do so
 
 ## How it works
 The actions use Python scripts to analyze the repository state and modify files accordingly. Changes are then automatically committed and pushed back to the repository in a single step to avoid conflicts.
+
+### Only Markdown List Fixer
+
+```yaml
+      - name: Markdown List Fixer
+        uses: dgaida/auto-version-action@main
+        with:
+          auto-version: false
+          create-badge: false
+          md-list-fix: true
+```

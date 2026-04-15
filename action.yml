@@ -15,6 +15,11 @@ inputs:
     required: false
     default: 'true'
 
+  md-list-fix:
+    description: "Whether to automatically fix Markdown lists"
+    required: false
+    default: "true"
+
   run-on-push:
     description: 'Whether to run on push events (outside of PRs)'
     required: false
@@ -30,6 +35,12 @@ runs:
     - name: Increment version
       if: (github.event_name != 'push' || inputs.run-on-push == 'true') && inputs.auto-version == 'true'
       run: python ${{ github.action_path }}/auto-version/increment_version.py
+      shell: bash
+
+
+    - name: Fix Markdown lists
+      if: (github.event_name != "push" || inputs.run-on-push == "true") && inputs.md-list-fix == "true"
+      run: python ${{ github.action_path }}/md-list-fixer/fix_md_lists.py
       shell: bash
 
     - name: Run add_badges script
@@ -50,7 +61,7 @@ runs:
           git add pyproject.toml
         fi
         if [ -f "README.md" ]; then
-          git add README.md
+          git add "*.md"
         fi
 
         if [ -n "$(git status --porcelain)" ]; then
