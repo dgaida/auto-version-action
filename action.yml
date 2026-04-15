@@ -15,6 +15,10 @@ inputs:
     required: false
     default: 'true'
 
+  run-on-push:
+    description: 'Whether to run on push events (outside of PRs)'
+    required: false
+    default: 'true'
 runs:
   using: 'composite'
   steps:
@@ -24,12 +28,12 @@ runs:
         python-version: '3.11'
 
     - name: Increment version
-      if: inputs.auto-version == 'true'
+      if: (github.event_name != 'push' || inputs.run-on-push == 'true') && inputs.auto-version == 'true'
       run: python ${{ github.action_path }}/auto-version/increment_version.py
       shell: bash
 
     - name: Run add_badges script
-      if: inputs.create-badge == 'true'
+      if: (github.event_name != 'push' || inputs.run-on-push == 'true') && inputs.create-badge == 'true'
       run: python ${{ github.action_path }}/add_badges.py
       shell: bash
       env:
@@ -37,6 +41,7 @@ runs:
         GITHUB_TOKEN: ${{ inputs.github-token }}
 
     - name: Commit and push changes
+      if: github.event_name != 'push' || inputs.run-on-push == 'true'
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
