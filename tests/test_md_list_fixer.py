@@ -1,5 +1,4 @@
 import os
-import pytest
 import sys
 
 # Add the directory to sys.path to import the script
