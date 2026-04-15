@@ -39,10 +39,10 @@ jobs:
           echo "API_COVERAGE=$COVERAGE" >> $GITHUB_ENV
 
       - name: Lint Markdown
-        uses: DavidAnson/github-py-markdownlint@v1
+        uses: davidanson/markdownlint-cli2-action@v16
         continue-on-error: true
         with:
-          glob: '**/*.md'
+          globs: '**/*.md'
         id: markdownlint
 
       - name: Check broken links
