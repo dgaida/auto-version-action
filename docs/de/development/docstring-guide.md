@@ -18,7 +18,7 @@ def increment_version():
 
 ## Abschnitte
 
-- **Args**: Beschreibung der Parameter.
-- **Returns**: Beschreibung des Rückgabewerts.
-- **Raises**: Dokumentation der Fehler, die die Funktion auslösen kann.
-- **Example**: Anwendungsbeispiele.
+- **Args**: Beschreibung der Parameter.  
+- **Returns**: Beschreibung des Rückgabewerts.  
+- **Raises**: Dokumentation der Fehler, die die Funktion auslösen kann.  
+- **Example**: Anwendungsbeispiele.  

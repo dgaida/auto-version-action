@@ -4,10 +4,10 @@ Dieses Projekt verwendet Semantic Versioning und automatisiert den Release-Proze
 
 ## Workflow
 
-1. **Änderungen committen**: Verwende [Conventional Commits](https://www.conventionalcommits.org/).
-2. **Automatisches Inkrement**: Bei jedem Push auf `main` erhöht die Action die Patch-Version in der `pyproject.toml`.
-3. **Tag-Erstellung**: Die Action erstellt automatisch einen Git-Tag (z.B. `v0.1.9`).
-4. **Changelog & Release**: Der neue Tag löst den `release.yml` Workflow aus, der das Changelog mittels `git-cliff` aktualisiert und ein GitHub Release erstellt.
+1. **Änderungen committen**: Verwende [Conventional Commits](https://www.conventionalcommits.org/).  
+2. **Automatisches Inkrement**: Bei jedem Push auf `main` erhöht die Action die Patch-Version in der `pyproject.toml`.  
+3. **Tag-Erstellung**: Die Action erstellt automatisch einen Git-Tag (z.B. `v0.1.9`).  
+4. **Changelog & Release**: Der neue Tag löst den `release.yml` Workflow aus, der das Changelog mittels `git-cliff` aktualisiert und ein GitHub Release erstellt.  
 
 ## Manuelles Eingreifen
 

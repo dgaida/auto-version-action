@@ -4,13 +4,13 @@ This guide will help you integrate the Auto Version Action into your repository.
 
 ## Prerequisites
 
-- A Python project with a `pyproject.toml`.
-- GitHub Actions are enabled.
+- A Python project with a `pyproject.toml`.  
+- GitHub Actions are enabled.  
 
 ## Setup
 
-1. Create a new workflow file at `.github/workflows/docs.yml`.
-2. Add the action to your steps:
+1. Create a new workflow file at `.github/workflows/docs.yml`.  
+2. Add the action to your steps:  
 
 ```yaml
 jobs:
@@ -28,4 +28,4 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-3. Commit and push the file. The action will now run on every push to the main branch.
+3. Commit and push the file. The action will now run on every push to the main branch.  

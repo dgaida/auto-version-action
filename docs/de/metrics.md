@@ -48,4 +48,4 @@ fetch('../assets/metrics.json')
 
 ## Badge-Status
 
-- **API-Abdeckung**: ![Interrogate Coverage](../assets/interrogate.svg)
+- **API-Abdeckung**: ![Interrogate Coverage](../assets/interrogate.svg)  

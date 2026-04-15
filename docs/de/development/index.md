@@ -4,9 +4,9 @@ Willkommen im Entwicklungsbereich. Hier erfährst du, wie du zum Projekt beitrag
 
 ## Lokales Setup
 
-1. Repository klonen.
-2. Virtuelle Umgebung erstellen: `python -m venv venv`.
-3. Abhängigkeiten installieren: `pip install -e ".[test]"`.
+1. Repository klonen.  
+2. Virtuelle Umgebung erstellen: `python -m venv venv`.  
+3. Abhängigkeiten installieren: `pip install -e ".[test]"`.  
 
 ## Tests ausführen
 

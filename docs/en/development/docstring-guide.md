@@ -18,7 +18,7 @@ def increment_version():
 
 ## Sections
 
-- **Args**: Description of parameters.
-- **Returns**: Description of the return value.
-- **Raises**: Documentation of exceptions the function might raise.
-- **Example**: Usage examples.
+- **Args**: Description of parameters.  
+- **Returns**: Description of the return value.  
+- **Raises**: Documentation of exceptions the function might raise.  
+- **Example**: Usage examples.  

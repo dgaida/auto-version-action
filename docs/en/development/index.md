@@ -4,9 +4,9 @@ Welcome to the development area. Here you can learn how to contribute to the pro
 
 ## Local Setup
 
-1. Clone the repository.
-2. Create a virtual environment: `python -m venv venv`.
-3. Install dependencies: `pip install -e ".[test]"`.
+1. Clone the repository.  
+2. Create a virtual environment: `python -m venv venv`.  
+3. Install dependencies: `pip install -e ".[test]"`.  
 
 ## Running Tests
 

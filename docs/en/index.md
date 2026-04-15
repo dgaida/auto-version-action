@@ -12,9 +12,9 @@ Welcome to the **Auto Version Action** documentation. This collection of GitHub 
 
 ## Key Features
 
-- **Auto Versioning**: Increments the version in `pyproject.toml` and creates Git tags.
-- **Add Badges**: Detects repository features and automatically adds badges to `README.md`.
-- **Markdown List Fixer**: Fixes formatting errors in Markdown lists for better rendering.
+- **Auto Versioning**: Increments the version in `pyproject.toml` and creates Git tags.  
+- **Add Badges**: Detects repository features and automatically adds badges to `README.md`.  
+- **Markdown List Fixer**: Fixes formatting errors in Markdown lists for better rendering.  
 
 ## Quick Start
 

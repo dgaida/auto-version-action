@@ -11,6 +11,7 @@ This repository provides useful GitHub Actions for repository maintenance.
 [![Code Quality](https://github.com/dgaida/auto-version-action/actions/workflows/lint.yml/badge.svg)](https://github.com/dgaida/auto-version-action/actions/workflows/lint.yml)
 [![Tests](https://github.com/dgaida/auto-version-action/actions/workflows/tests.yml/badge.svg)](https://github.com/dgaida/auto-version-action/actions/workflows/tests.yml)
 [![CodeQL](https://github.com/dgaida/auto-version-action/actions/workflows/codeql.yml/badge.svg)](https://github.com/dgaida/auto-version-action/actions/workflows/codeql.yml)
+[![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://dgaida.github.io/auto-version-action/)
 
 
 ## Features
@@ -18,15 +19,15 @@ This repository provides useful GitHub Actions for repository maintenance.
 This action provides two main functionalities that can be used independently or together:
 
 ### 1. Add Badges
-Automatically detects repository features and adds relevant badges to your `README.md`. It checks for:
-- **Version**: From `pyproject.toml` or `package.json`.
-- **Python Version**: From `pyproject.toml`.
-- **License**: MIT license detection.
-- **Codecov**: Integration detection.
-- **GitHub Workflows**: Badges for `lint`, `tests`, and `codeql`.
-- **Code Style**: `black` or `ruff`.
-- **Documentation**: GitHub Pages or `docs/` folder.
-- **Maintenance**: Status and last commit.
+Automatically detects repository features and adds relevant badges to your `README.md`. It checks for:  
+- **Version**: From `pyproject.toml` or `package.json`.  
+- **Python Version**: From `pyproject.toml`.  
+- **License**: MIT license detection.  
+- **Codecov**: Integration detection.  
+- **GitHub Workflows**: Badges for `lint`, `tests`, and `codeql`.  
+- **Code Style**: `black` or `ruff`.  
+- **Documentation**: GitHub Pages or `docs/` folder.  
+- **Maintenance**: Status and last commit.  
 
 ### 3. Markdown List Fixer
 Ensures that Markdown list items and the lines preceding them end with two spaces. This ensures that they are correctly rendered with a line break in many Markdown viewers.

@@ -10,6 +10,6 @@ Die Konfiguration befindet sich in `cliff.toml`. Sie gruppiert Commits in Katego
 
 Bitte achte darauf, dass deine Commit-Nachrichten dem Conventional Commits Standard entsprechen:
 
-- `feat: ...` für neue Funktionen
-- `fix: ...` für Fehlerbehebungen
-- `docs: ...` für Dokumentationsänderungen
+- `feat: ...` für neue Funktionen  
+- `fix: ...` für Fehlerbehebungen  
+- `docs: ...` für Dokumentationsänderungen  
