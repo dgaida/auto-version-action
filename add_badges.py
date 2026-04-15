@@ -1,19 +1,35 @@
+"""Script to automatically detect and add badges to README.md."""
 import os
 import re
 import urllib.request
 import json
 
-def get_repo_info():
+def get_repo_info() -> tuple[str, str]:
+    """Gets the repository owner and name from environment variables.
+
+    Returns:
+        tuple: (owner, name) as strings.
+    """
     full_repo = os.environ.get("GITHUB_REPOSITORY")
     if not full_repo or "/" not in full_repo:
         return "dgaida", "auto-version-action"
     owner, name = full_repo.split("/")
     return owner, name
 
-def get_default_branch():
+def get_default_branch() -> str:
+    """Gets the default branch name from environment variables.
+
+    Returns:
+        str: The default branch name (e.g., "main" or "master").
+    """
     return os.environ.get("GITHUB_REF_NAME", "master")
 
-def detect_version():
+def detect_version() -> str | None:
+    """Detects the project version from pyproject.toml or package.json.
+
+    Returns:
+        str: The version string if found, otherwise None.
+    """
     if os.path.exists("pyproject.toml"):
         try:
             with open("pyproject.toml", "r") as f:
@@ -33,7 +49,12 @@ def detect_version():
             pass
     return None
 
-def detect_python_version():
+def detect_python_version() -> str | None:
+    """Detects the required Python version from pyproject.toml.
+
+    Returns:
+        str: The Python version string (e.g., "3.11+") if found, otherwise None.
+    """
     if os.path.exists("pyproject.toml"):
         try:
             with open("pyproject.toml", "r") as f:
@@ -46,10 +67,20 @@ def detect_python_version():
             pass
     return None
 
-def is_python_repo():
+def is_python_repo() -> bool:
+    """Checks if the repository is a Python project.
+
+    Returns:
+        bool: True if Python-specific files exist, False otherwise.
+    """
     return any(os.path.exists(f) for f in ["pyproject.toml", "setup.py", "requirements.txt"])
 
-def has_mit_license():
+def has_mit_license() -> bool:
+    """Checks if the repository has an MIT license file.
+
+    Returns:
+        bool: True if an MIT license is found, False otherwise.
+    """
     for f in ["LICENSE", "LICENSE.txt", "LICENSE.md", "license"]:
         if os.path.exists(f):
             try:
@@ -61,7 +92,12 @@ def has_mit_license():
                 pass
     return False
 
-def uses_codecov():
+def uses_codecov() -> bool:
+    """Checks if the repository uses Codecov.
+
+    Returns:
+        bool: True if Codecov configuration or workflow is found.
+    """
     if os.path.exists(".codecov.yml") or os.path.exists("codecov.yml"):
         return True
     if os.path.exists(".github/workflows"):
@@ -75,10 +111,23 @@ def uses_codecov():
             pass
     return False
 
-def has_workflow(wf_name):
+def has_workflow(wf_name) -> bool:
+    """Checks if a specific GitHub workflow exists.
+
+    Args:
+        wf_name (str): The name of the workflow file (without extension).
+
+    Returns:
+        bool: True if the workflow exists, False otherwise.
+    """
     return os.path.exists(f".github/workflows/{wf_name}.yml") or os.path.exists(f".github/workflows/{wf_name}.yaml")
 
-def uses_black():
+def uses_black() -> bool:
+    """Checks if the project uses the Black code formatter.
+
+    Returns:
+        bool: True if Black is configured in pyproject.toml.
+    """
     if os.path.exists("pyproject.toml"):
         try:
             with open("pyproject.toml", "r") as f:
@@ -88,7 +137,12 @@ def uses_black():
             pass
     return False
 
-def uses_ruff():
+def uses_ruff() -> bool:
+    """Checks if the project uses the Ruff linter/formatter.
+
+    Returns:
+        bool: True if Ruff is configured or used.
+    """
     if os.path.exists("pyproject.toml"):
         try:
             with open("pyproject.toml", "r") as f:
@@ -98,7 +152,16 @@ def uses_ruff():
             pass
     return os.path.exists("ruff.toml") or os.path.exists(".ruff.toml")
 
-def has_github_pages(owner, name):
+def has_github_pages(owner, name) -> bool:
+    """Checks if GitHub Pages or MkDocs is configured for the repo.
+
+    Args:
+        owner (str): Repository owner.
+        name (str): Repository name.
+
+    Returns:
+        bool: True if docs are found or the page responds with 200.
+    """
     url = f"https://{owner}.github.io/{name}/"
     try:
         req = urllib.request.Request(url, method='HEAD')
@@ -109,7 +172,16 @@ def has_github_pages(owner, name):
         pass
     return os.path.exists("docs/") or os.path.exists("mkdocs.yml")
 
-def has_tags(owner, name):
+def has_tags(owner, name) -> bool:
+    """Checks if the repository has any Git tags using the GitHub API.
+
+    Args:
+        owner (str): Repository owner.
+        name (str): Repository name.
+
+    Returns:
+        bool: True if at least one tag exists.
+    """
     token = os.environ.get("GITHUB_TOKEN")
     url = f"https://api.github.com/repos/{owner}/{name}/tags"
     req = urllib.request.Request(url)
@@ -124,7 +196,12 @@ def has_tags(owner, name):
         print(f"Error checking tags for {owner}/{name}: {e}")
         return False
 
-def get_applicable_badges():
+def get_applicable_badges() -> list[str]:
+    """Determines which badges should be added based on repo features.
+
+    Returns:
+        list: A list of Markdown badge strings.
+    """
     owner, name = get_repo_info()
     branch = get_default_branch()
     badges = []
@@ -170,6 +247,11 @@ def get_applicable_badges():
     return badges
 
 def update_readme():
+    """Updates the README.md file with detected badges.
+
+    The function scans the repository for features, generates badges,
+    and inserts or updates them in the README.md.
+    """
     filepath = "README.md"
     if not os.path.exists(filepath):
         print(f"{filepath} not found")
