@@ -1,0 +1,84 @@
+name: Documentation
+
+on:
+  push:
+    branches: [main, master]
+    tags: ["v*"]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install .[test]
+          pip install mkdocs-material mkdocstrings[python] mkdocs-static-i18n mike mkdocs-mermaid2-plugin interrogate
+
+      - name: Run tests
+        run: python -m pytest
+
+      - name: Check API doc coverage
+        run: |
+          interrogate . --fail-under 95 --generate-badge docs/assets/interrogate.svg
+          COVERAGE=$(interrogate . | grep -oP 'TOTAL\s+\d+\s+\d+\s+\d+\.\d+' | awk '{print $5}')
+          echo "API_COVERAGE=$COVERAGE" >> $GITHUB_ENV
+
+      - name: Lint Markdown
+        uses: davidanson/markdownlint-cli2-action@v16
+        continue-on-error: true
+        with:
+          globs: '**/*.md'
+        id: markdownlint
+
+      - name: Check broken links
+        run: |
+          mkdocs build --strict
+        continue-on-error: true
+        id: linkcheck
+
+      - name: Collect metrics
+        run: |
+          DATE=$(date +'%Y-%m-%d')
+          LINT_ERRORS=0
+          if [ "${{ steps.markdownlint.outcome }}" != "success" ]; then LINT_ERRORS=1; fi
+          BROKEN_LINKS=0
+          if [ "${{ steps.linkcheck.outcome }}" != "success" ]; then BROKEN_LINKS=1; fi
+
+          cat <<JSON > docs/assets/metrics.json
+          {
+            "api_coverage": ${API_COVERAGE:-0},
+            "broken_links": $BROKEN_LINKS,
+            "lint_errors": $LINT_ERRORS,
+            "last_updated": "$DATE"
+          }
+          JSON
+
+      - name: Build and Deploy with mike
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin gh-pages --depth=1 || true
+
+          if [[ ${{ github.ref }} == refs/tags/* ]]; then
+            VERSION=${GITHUB_REF#refs/tags/}
+            mike deploy --push --update-aliases $VERSION latest
+          elif [[ ${{ github.ref }} == refs/heads/main || ${{ github.ref }} == refs/heads/master ]]; then
+            mike deploy --push --update-aliases dev
+          fi
+          mike set-default --push latest || true

@@ -1,8 +1,17 @@
+"""Script to automatically increment the version in pyproject.toml."""
 import os
 import re
 import sys
 
 def increment_version():
+    """Increments the patch version in pyproject.toml.
+
+    If the patch version reaches 10, it overflows to minor.
+    If the minor reaches 10, it overflows to major.
+
+    Raises:
+        SystemExit: If pyproject.toml is missing or version not found.
+    """
     filepath = "pyproject.toml"
     if not os.path.exists(filepath):
         print(f"Error: {filepath} not found in the root of the repository.")

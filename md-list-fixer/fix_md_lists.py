@@ -1,7 +1,16 @@
+"""Script to automatically fix Markdown list formatting."""
 import os
 import re
 
-def fix_markdown_file(filepath):
+def fix_markdown_file(filepath) -> bool:
+    """Ensures Markdown list items end with two spaces for line breaks.
+
+    Args:
+        filepath (str): Path to the Markdown file.
+
+    Returns:
+        bool: True if the file was modified, False otherwise.
+    """
     with open(filepath, 'r', encoding='utf-8') as f:
         lines = f.readlines()
 
@@ -62,6 +71,10 @@ def fix_markdown_file(filepath):
     return False
 
 def main():
+    """Main entry point for the Markdown list fixer action.
+
+    Scans the repository for all .md files and applies fixes.
+    """
     files_to_check = []
     for root, dirs, files in os.walk('.'):
         # Skip .git and other hidden dirs
