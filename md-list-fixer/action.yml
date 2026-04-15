@@ -16,12 +16,12 @@ runs:
         python-version: "3.11"
 
     - name: Fix Markdown lists
-      if: github.event_name != "push" || inputs.run-on-push == "true"
+      if: github.event_name != 'push' || inputs.run-on-push == 'true'
       run: python ${{ github.action_path }}/fix_md_lists.py
       shell: bash
 
     - name: Commit and push changes
-      if: github.event_name != "push" || inputs.run-on-push == "true"
+      if: github.event_name != 'push' || inputs.run-on-push == 'true'
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"

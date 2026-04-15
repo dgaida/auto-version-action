@@ -39,7 +39,7 @@ runs:
 
 
     - name: Fix Markdown lists
-      if: (github.event_name != "push" || inputs.run-on-push == "true") && inputs.md-list-fix == "true"
+      if: (github.event_name != 'push' || inputs.run-on-push == 'true') && inputs.md-list-fix == 'true'
       run: python ${{ github.action_path }}/md-list-fixer/fix_md_lists.py
       shell: bash
 
