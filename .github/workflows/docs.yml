@@ -27,7 +27,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install .[test]
-          pip install mkdocs-material mkdocstrings[python] mkdocs-static-i18n mike mermaid2 interrogate
+          pip install mkdocs-material mkdocstrings[python] mkdocs-static-i18n mike mkdocs-mermaid2-plugin interrogate
 
       - name: Run tests
         run: python -m pytest
