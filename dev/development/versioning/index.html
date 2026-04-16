@@ -1036,10 +1036,10 @@
 <p>Dieses Projekt verwendet Semantic Versioning und automatisiert den Release-Prozess.</p>
 <h2 id="workflow">Workflow</h2>
 <ol>
-<li><strong>Änderungen committen</strong>: Verwende <a href="https://www.conventionalcommits.org/">Conventional Commits</a>.</li>
-<li><strong>Automatisches Inkrement</strong>: Bei jedem Push auf <code>main</code> erhöht die Action die Patch-Version in der <code>pyproject.toml</code>.</li>
-<li><strong>Tag-Erstellung</strong>: Die Action erstellt automatisch einen Git-Tag (z.B. <code>v0.1.9</code>).</li>
-<li><strong>Changelog &amp; Release</strong>: Der neue Tag löst den <code>release.yml</code> Workflow aus, der das Changelog mittels <code>git-cliff</code> aktualisiert und ein GitHub Release erstellt.</li>
+<li><strong>Änderungen committen</strong>: Verwende <a href="https://www.conventionalcommits.org/">Conventional Commits</a>.  </li>
+<li><strong>Automatisches Inkrement</strong>: Bei jedem Push auf <code>main</code> erhöht die Action die Patch-Version in der <code>pyproject.toml</code>.  </li>
+<li><strong>Tag-Erstellung</strong>: Die Action erstellt automatisch einen Git-Tag (z.B. <code>v0.1.9</code>).  </li>
+<li><strong>Changelog &amp; Release</strong>: Der neue Tag löst den <code>release.yml</code> Workflow aus, der das Changelog mittels <code>git-cliff</code> aktualisiert und ein GitHub Release erstellt.  </li>
 </ol>
 <h2 id="manuelles-eingreifen">Manuelles Eingreifen</h2>
 <p>Sollte eine Major- oder Minor-Version benötigt werden, muss diese manuell in der <code>pyproject.toml</code> angepasst werden. Die Action erkennt die Änderung und erstellt den entsprechenden Tag.</p>

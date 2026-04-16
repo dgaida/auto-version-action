@@ -1033,13 +1033,13 @@
 <p>Diese Anleitung hilft dir dabei, die Auto Version Action in dein Repository zu integrieren.</p>
 <h2 id="voraussetzungen">Voraussetzungen</h2>
 <ul>
-<li>Ein Python-Projekt mit einer <code>pyproject.toml</code>.</li>
-<li>GitHub Actions sind aktiviert.</li>
+<li>Ein Python-Projekt mit einer <code>pyproject.toml</code>.  </li>
+<li>GitHub Actions sind aktiviert.  </li>
 </ul>
 <h2 id="einrichtung">Einrichtung</h2>
 <ol>
-<li>Erstelle eine neue Workflow-Datei unter <code>.github/workflows/docs.yml</code>.</li>
-<li>Füge die Action zu deinen Schritten hinzu:</li>
+<li>Erstelle eine neue Workflow-Datei unter <code>.github/workflows/docs.yml</code>.  </li>
+<li>Füge die Action zu deinen Schritten hinzu:  </li>
 </ol>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">jobs</span><span class="p">:</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">maintenance</span><span class="p">:</span>
@@ -1056,7 +1056,7 @@
 <a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">          </span><span class="nt">github-token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.GITHUB_TOKEN }}</span>
 </code></pre></div>
 <ol>
-<li>Committe und pushe die Datei. Die Action wird nun bei jedem Push auf den Haupt-Branch ausgeführt.</li>
+<li>Committe und pushe die Datei. Die Action wird nun bei jedem Push auf den Haupt-Branch ausgeführt.  </li>
 </ol>
 
 

@@ -1038,10 +1038,10 @@
 <p>This project uses Semantic Versioning and automates the release process.</p>
 <h2 id="workflow">Workflow</h2>
 <ol>
-<li><strong>Commit Changes</strong>: Use <a href="https://www.conventionalcommits.org/">Conventional Commits</a>.</li>
-<li><strong>Automatic Increment</strong>: On every push to <code>main</code>, the action increments the patch version in <code>pyproject.toml</code>.</li>
-<li><strong>Tag Creation</strong>: The action automatically creates a Git tag (e.g., <code>v0.1.9</code>).</li>
-<li><strong>Changelog &amp; Release</strong>: The new tag triggers the <code>release.yml</code> workflow, which updates the changelog using <code>git-cliff</code> and creates a GitHub Release.</li>
+<li><strong>Commit Changes</strong>: Use <a href="https://www.conventionalcommits.org/">Conventional Commits</a>.  </li>
+<li><strong>Automatic Increment</strong>: On every push to <code>main</code>, the action increments the patch version in <code>pyproject.toml</code>.  </li>
+<li><strong>Tag Creation</strong>: The action automatically creates a Git tag (e.g., <code>v0.1.9</code>).  </li>
+<li><strong>Changelog &amp; Release</strong>: The new tag triggers the <code>release.yml</code> workflow, which updates the changelog using <code>git-cliff</code> and creates a GitHub Release.  </li>
 </ol>
 <h2 id="manual-intervention">Manual Intervention</h2>
 <p>If a major or minor version is required, it must be manually adjusted in <code>pyproject.toml</code>. The action will detect the change and create the corresponding tag.</p>
