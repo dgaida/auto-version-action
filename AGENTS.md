@@ -34,5 +34,5 @@ This repository contains a collection of GitHub Actions for repository maintenan
 
 The skills located in the `skills/` folder should be used if applicable.
 
-- `SKILL_coding.md`: Use this skill when performing deep code reviews, analyzing repository structure, or proposing improvements for maintainability and scalability.
-- `SKILL_docs.md`: Use this skill when setting up, improving, or automating MkDocs documentation, including bilingual support and CI/CD integration.
+- `SKILL_coding.md`: Use this skill when performing deep code reviews, analyzing repository structure, or proposing improvements for maintainability and scalability.  
+- `SKILL_docs.md`: Use this skill when setting up, improving, or automating MkDocs documentation, including bilingual support and CI/CD integration.  
