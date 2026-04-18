@@ -29,3 +29,10 @@ This repository contains a collection of GitHub Actions for repository maintenan
 ## Maintenance
 
 - The project uses GitHub Actions to test itself. Ensure that `.github/workflows/tests.yml` and other CI workflows pass.  
+
+## Skills
+
+The skills located in the `skills/` folder should be used if applicable.
+
+- `SKILL_coding.md`: Use this skill when performing deep code reviews, analyzing repository structure, or proposing improvements for maintainability and scalability.
+- `SKILL_docs.md`: Use this skill when setting up, improving, or automating MkDocs documentation, including bilingual support and CI/CD integration.
