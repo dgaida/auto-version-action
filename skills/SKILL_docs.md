@@ -27,12 +27,12 @@ and maintainers.
 Before generating any output, fetch and analyze the repository. Use `web_fetch` or `web_search`
 if only a URL is provided. Identify:
 
-- Project goals, scope, and target audience
-- Python package structure and all public APIs
-- CLI tools, libraries, services, and workflows present
-- Existing documentation (README, docstrings, wikis)
-- Dependencies and runtime environments
-- Existing CI/CD setup
+- Project goals, scope, and target audience  
+- Python package structure and all public APIs  
+- CLI tools, libraries, services, and workflows present  
+- Existing documentation (README, docstrings, wikis)  
+- Dependencies and runtime environments  
+- Existing CI/CD setup  
 
 **State all assumptions explicitly** before proceeding. Do not invent APIs or fabricate
 module names — base everything strictly on the actual repository contents.
@@ -75,9 +75,9 @@ versions/
 mkdocs.yml
 ```
 
-- 🇩🇪 **German** is the authoritative source — write full professional content
-- 🇬🇧 **English** is a faithful, complete translation — never shortened or summarized
-- Both versions must be **fully equivalent** — no placeholders, no stubs
+- 🇩🇪 **German** is the authoritative source — write full professional content  
+- 🇬🇧 **English** is a faithful, complete translation — never shortened or summarized  
+- Both versions must be **fully equivalent** — no placeholders, no stubs  
 
 ---
 
@@ -87,19 +87,19 @@ Generate a complete, copy-paste-ready `mkdocs.yml` with:
 
 **Theme**: `material`
 
-**Plugins** (all configured, not just listed):
-- `search`
-- `mkdocstrings` (Python handler, configured for Google-style docstrings)
-- `mermaid2`
-- `mike` (versioning)
-- `i18n` or equivalent multilingual plugin
+**Plugins** (all configured, not just listed):  
+- `search`  
+- `mkdocstrings` (Python handler, configured for Google-style docstrings)  
+- `mermaid2`  
+- `mike` (versioning)  
+- `i18n` or equivalent multilingual plugin  
 
-**Features to enable**:
-- Language switcher (DE/EN)
-- Version selector
-- API extraction from docstrings
-- Syntax highlighting
-- Navigation tabs, search highlighting, content tabs
+**Features to enable**:  
+- Language switcher (DE/EN)  
+- Version selector  
+- API extraction from docstrings  
+- Syntax highlighting  
+- Navigation tabs, search highlighting, content tabs  
 
 Provide the complete YAML — no commented-out stubs.
 
@@ -109,14 +109,14 @@ Provide the complete YAML — no commented-out stubs.
 
 Write full Markdown pages for both languages covering:
 
-**Core pages** (DE + EN):
-- `index.md` — Project overview, badges, quickstart snippet
-- `getting-started.md` — End-to-end quickstart with real code examples
-- `installation.md` — All install paths (pip, dev, extras)
-- `configuration.md` — All config options with defaults and examples
-- `usage/` — Key workflows with realistic code examples
-- `troubleshooting.md` — Common errors with solutions
-- `development/` — Contributing guide, local dev setup, code style
+**Core pages** (DE + EN):  
+- `index.md` — Project overview, badges, quickstart snippet  
+- `getting-started.md` — End-to-end quickstart with real code examples  
+- `installation.md` — All install paths (pip, dev, extras)  
+- `configuration.md` — All config options with defaults and examples  
+- `usage/` — Key workflows with realistic code examples  
+- `troubleshooting.md` — Common errors with solutions  
+- `development/` — Contributing guide, local dev setup, code style  
 
 **API Docs** — use `mkdocstrings` directives based on actual modules found:
 ```markdown
@@ -124,10 +124,10 @@ Write full Markdown pages for both languages covering:
 ::: package.module.function_name
 ```
 
-**Architecture** (Mermaid diagrams):
-- System overview diagram
-- Data flow diagram
-- Key lifecycle/process diagram
+**Architecture** (Mermaid diagrams):  
+- System overview diagram  
+- Data flow diagram  
+- Key lifecycle/process diagram  
 
 Generate diagrams based on what is actually found in the repository.
 
@@ -166,10 +166,10 @@ def func(x: int, y: str = "default") -> bool:
 
 #### Compliance Scan
 
-For each public function/class/method found in the repository that lacks a compliant docstring:
-- Name the symbol and file
-- Show the current state (missing / incomplete / wrong style)
-- Provide a ready-to-use replacement docstring
+For each public function/class/method found in the repository that lacks a compliant docstring:  
+- Name the symbol and file  
+- Show the current state (missing / incomplete / wrong style)  
+- Provide a ready-to-use replacement docstring  
 
 ---
 
@@ -248,10 +248,10 @@ mike deploy --push --update-aliases 1.0 latest
 mike set-default --push latest
 ```
 
-**`docs/de/development/versioning.md`** and **`docs/en/development/versioning.md`**:
-- How to deploy a new version on release
-- How to patch documentation for an older version
-- Version selector behavior
+**`docs/de/development/versioning.md`** and **`docs/en/development/versioning.md`**:  
+- How to deploy a new version on release  
+- How to patch documentation for an older version  
+- Version selector behavior  
 
 **`mkdocs.yml` `extra` section** for version provider.
 
@@ -278,15 +278,15 @@ jobs:
 
 The pipeline must execute **in this order**:
 
-1. ✅ Checkout + Python setup with dependency caching
-2. ✅ Run tests (`pytest`)
-3. ✅ Check API doc coverage (`interrogate`, fail below threshold)
-4. ✅ Lint Markdown (`markdownlint`)
-5. ✅ Check broken links
-6. ✅ Collect and write `metrics.json`
-7. ✅ Generate/update `CHANGELOG.md` (on tag push only)
-8. ✅ Build MkDocs (`mkdocs build --strict`)
-9. ✅ Deploy with `mike` (on push to `main` or tag, not on PRs)
+1. ✅ Checkout + Python setup with dependency caching  
+2. ✅ Run tests (`pytest`)  
+3. ✅ Check API doc coverage (`interrogate`, fail below threshold)  
+4. ✅ Lint Markdown (`markdownlint`)  
+5. ✅ Check broken links  
+6. ✅ Collect and write `metrics.json`  
+7. ✅ Generate/update `CHANGELOG.md` (on tag push only)  
+8. ✅ Build MkDocs (`mkdocs build --strict`)  
+9. ✅ Deploy with `mike` (on push to `main` or tag, not on PRs)  
 
 Use caching for `pip` and `npm` (for markdownlint). Provide the **complete** YAML — no
 `# TODO` comments, no placeholders.
@@ -315,19 +315,19 @@ full system (install dependencies, initialize `mike`, first `git-cliff` run, etc
 
 Every output must be:
 
-- **Accurate** — based strictly on the actual repository, no invented symbols
-- **Complete** — no stubs, no `# add your content here`, no shortened translations
-- **Copy-paste ready** — runnable without modification (except repo-specific values)
-- **Example-driven** — every config option and workflow step has a concrete example
-- **Bilingual** — all user-facing Markdown pages exist in both DE and EN at full quality
+- **Accurate** — based strictly on the actual repository, no invented symbols  
+- **Complete** — no stubs, no `# add your content here`, no shortened translations  
+- **Copy-paste ready** — runnable without modification (except repo-specific values)  
+- **Example-driven** — every config option and workflow step has a concrete example  
+- **Bilingual** — all user-facing Markdown pages exist in both DE and EN at full quality  
 
 ---
 
 ## Constraints
 
-- Do not invent module names, class names, or function signatures
-- Mark all assumptions explicitly with `> **Annahme / Assumption:**`
-- If the repository is not accessible, ask the user to paste the file tree and key source
-  files before proceeding
-- Prefer `material` theme defaults over heavy customization unless the repo has a brand
-- Keep `mkdocs.yml` under 200 lines; extract nav into a separate include if needed
+- Do not invent module names, class names, or function signatures  
+- Mark all assumptions explicitly with `> **Annahme / Assumption:**`  
+- If the repository is not accessible, ask the user to paste the file tree and key source  
+  files before proceeding  
+- Prefer `material` theme defaults over heavy customization unless the repo has a brand  
+- Keep `mkdocs.yml` under 200 lines; extract nav into a separate include if needed  
