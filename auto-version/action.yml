@@ -31,7 +31,7 @@ runs:
         git push origin ${{ github.event.pull_request.base.ref || github.ref_name }}
         
         # Extract new version and create tag
-        NEW_VERSION=$(grep '^version = "' pyproject.toml | cut -d'"' -f2)
+        NEW_VERSION=$(python3 -c 'import tomllib; print(tomllib.load(open("pyproject.toml", "rb"))["project"]["version"])')
         git tag v$NEW_VERSION
         git push origin v$NEW_VERSION
       shell: bash
