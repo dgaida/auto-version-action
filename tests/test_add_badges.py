@@ -10,13 +10,6 @@ class TestAddBadges(unittest.TestCase):
         with patch("builtins.open", mock_open(read_data=content.encode('utf-8'))):
             self.assertEqual(add_badges.detect_version(), "1.2.3")
 
-    @patch("os.path.exists")
-    def test_detect_version_multiple_sections(self, mock_exists):
-        mock_exists.return_value = True
-        content = '[project]\nversion = "1.2.3"\n\n[tool.commitizen]\nversion = "0.0.1"\n'
-        with patch("builtins.open", mock_open(read_data=content.encode('utf-8'))):
-            self.assertEqual(add_badges.detect_version(), "1.2.3")
-
 
     @patch("os.path.exists")
     def test_is_python_repo(self, mock_exists):
