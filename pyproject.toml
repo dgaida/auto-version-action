@@ -1,6 +1,6 @@
 [project]
 name = "auto-version-action"
-version = "0.2.6"
+version = "0.2.7"
 description = "A collection of GitHub Actions for repository maintenance."
 requires-python = ">=3.11"
 [[project.authors]]
