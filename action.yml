@@ -70,7 +70,7 @@ runs:
           git push origin ${{ github.event.pull_request.base.ref || github.ref_name }}
 
           if [ "${{ inputs.auto-version }}" == "true" ] && [ -f "pyproject.toml" ]; then
-            NEW_VERSION=$(grep '^version = "' pyproject.toml | cut -d'"' -f2)
+            NEW_VERSION=$(python3 -c 'import tomllib; print(tomllib.load(open("pyproject.toml", "rb"))["project"]["version"])')
             if [ -n "$NEW_VERSION" ]; then
               if ! git rev-parse "v$NEW_VERSION" >/dev/null 2>&1; then
                 git tag v$NEW_VERSION

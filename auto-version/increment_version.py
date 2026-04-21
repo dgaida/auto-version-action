@@ -9,6 +9,8 @@ def increment_version():
     If the patch version reaches 10, it overflows to minor.
     If the minor reaches 10, it overflows to major.
 
+    Only increments the version within the [project] section.
+
     Raises:
         SystemExit: If pyproject.toml is missing or version not found.
     """
@@ -22,8 +24,18 @@ def increment_version():
 
     new_lines = []
     found = False
+    current_section = None
+    section_pattern = re.compile(r'^\[(.*)\]')
+
     for line in lines:
-        if not found and line.strip().startswith('version = "'):
+        stripped_line = line.strip()
+
+        # Check for section header
+        match_section = section_pattern.match(stripped_line)
+        if match_section:
+            current_section = match_section.group(1)
+
+        if not found and current_section == "project" and stripped_line.startswith('version = "'):
             match = re.search(r'version = "(\d+)\.(\d+)\.(\d+)"', line)
             if match:
                 major, minor, patch = map(int, match.groups())
@@ -47,7 +59,7 @@ def increment_version():
         with open(filepath, "w") as f:
             f.writelines(new_lines)
     else:
-        print("Error: Could not find version string in pyproject.toml")
+        print("Error: Could not find version string in [project] section of pyproject.toml")
         sys.exit(1)
 
 if __name__ == "__main__":

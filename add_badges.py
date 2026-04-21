@@ -32,14 +32,24 @@ def detect_version() -> str | None:
     """
     if os.path.exists("pyproject.toml"):
         try:
-            with open("pyproject.toml", "r") as f:
-                for line in f:
-                    if line.strip().startswith("version ="):
-                        match = re.search(r'version = "(.*?)"', line)
-                        if match:
-                            return match.group(1)
-        except Exception:
-            pass
+            import tomllib
+            with open("pyproject.toml", "rb") as f:
+                data = tomllib.load(f)
+                return data.get("project", {}).get("version")
+        except (ImportError, Exception):
+            try:
+                with open("pyproject.toml", "r") as f:
+                    current_section = None
+                    for line in f:
+                        stripped = line.strip()
+                        if stripped.startswith("[") and stripped.endswith("]"):
+                            current_section = stripped[1:-1]
+                        if current_section == "project" and stripped.startswith("version ="):
+                            match = re.search(r'version = "(.*?)"', line)
+                            if match:
+                                return match.group(1)
+            except Exception:
+                pass
     if os.path.exists("package.json"):
         try:
             with open("package.json", "r") as f:
