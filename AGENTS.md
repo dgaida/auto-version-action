@@ -37,5 +37,5 @@ The skills located in the `skills/` folder should be used if applicable.
 - `SKILL_coding.md`: Use this skill when performing deep code reviews, analyzing repository structure, or proposing improvements for maintainability and scalability.  
 - `SKILL_docs.md`: Use this skill when setting up, improving, or automating MkDocs documentation, including bilingual support and CI/CD integration.  
 
-## Clean up
-- **Delete temporary files**: Always delete temporary files (e.g., `coverage.xml`, `.coverage`, or temporary logs) before creating a pull request or submitting changes.
+## Clean up  
+- **Delete temporary files**: Always delete temporary files (e.g., `coverage.xml`, `.coverage`, or temporary logs) before creating a pull request or submitting changes.  

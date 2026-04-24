@@ -12,6 +12,7 @@ This repository provides useful GitHub Actions for repository maintenance.
 [![Tests](https://github.com/dgaida/auto-version-action/actions/workflows/tests.yml/badge.svg)](https://github.com/dgaida/auto-version-action/actions/workflows/tests.yml)
 [![CodeQL](https://github.com/dgaida/auto-version-action/actions/workflows/codeql.yml/badge.svg)](https://github.com/dgaida/auto-version-action/actions/workflows/codeql.yml)
 [![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://dgaida.github.io/auto-version-action/)
+[![codecov](https://codecov.io/gh/dgaida/auto-version-action/branch/main/graph/badge.svg)](https://codecov.io/gh/dgaida/auto-version-action)
 
 
 ## Features
