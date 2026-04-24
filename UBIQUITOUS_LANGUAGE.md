@@ -19,10 +19,10 @@
 
 ## Relationships
 
-- An **Action** performs **Detection** to determine which **Badges** to add.
-- An **Action** can **Increment** the **Version** in `pyproject.toml`.
-- A **Version** change triggers the creation of a corresponding **Tag**.
-- The **List Fixer** ensures correct line breaks in Markdown files by appending spaces.
+- An **Action** performs **Detection** to determine which **Badges** to add.  
+- An **Action** can **Increment** the **Version** in `pyproject.toml`.  
+- A **Version** change triggers the creation of a corresponding **Tag**.  
+- The **List Fixer** ensures correct line breaks in Markdown files by appending spaces.  
 
 ## Example dialogue
 
@@ -33,5 +33,5 @@
 
 ## Flagged ambiguities
 
-- **"Version"**: Used to mean both the string in `pyproject.toml` and the **Tag** in Git. Recommendation: Use **Version** for the metadata and **Tag** for the Git reference.
-- **"Action"**: Used for both the repository as a whole and the specific composite steps. Recommendation: Use **Action** for the GitHub-compatible maintenance tasks.
+- **"Version"**: Used to mean both the string in `pyproject.toml` and the **Tag** in Git. Recommendation: Use **Version** for the metadata and **Tag** for the Git reference.  
+- **"Action"**: Used for both the repository as a whole and the specific composite steps. Recommendation: Use **Action** for the GitHub-compatible maintenance tasks.  
