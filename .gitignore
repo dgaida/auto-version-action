@@ -14,3 +14,4 @@ dist/
 htmlcov/
 *.egg-info/
 .ruff_cache/
+coverage.xml
