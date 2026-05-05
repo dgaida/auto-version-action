@@ -135,7 +135,7 @@ Generate diagrams based on what is actually found in the repository.
 
 ### 4. Google-Style Docstring Standard
 
-- **Requirement**: Google-style docstrings must be added to **all** methods and classes (not just public ones).
+- **Requirement**: Google-style docstrings must be added to **all** methods and classes (not just public ones).  
 
 #### Docstring Style Guide Page
 
