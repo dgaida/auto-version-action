@@ -40,7 +40,7 @@ not applicable (e.g., no tests exist at all → still flag this under Testing).
 - Identify misplaced files, overly large modules, or unclear boundaries  
 - Suggest a clearer, more scalable structure if applicable  
 - Flag dead code, unused files, or obsolete folders  
-- Ensure an `AGENTS.md` file is present in the repository root to provide instructions for AI agents  
+- Ensure an `AGENTS.md` file is present in the repository root to provide instructions for AI agents, including a mandatory directive to delete all temporary files (e.g., coverage reports, logs) before creating a pull request or submitting changes.
 
 ### 2. Code Quality & Maintainability
 
