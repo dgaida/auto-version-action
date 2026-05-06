@@ -76,6 +76,7 @@ not applicable (e.g., no tests exist at all → still flag this under Testing).
 
 - Review CI/CD setup (if present)  
 - Suggest improvements for linting, formatting, static analysis, and test automation  
+- Ensure a "tests" GitHub Action is generated, which must include steps for creating and uploading a code coverage report (e.g., using Codecov).
 - Identify missing quality gates  
 - **auto-version & badges**: Check whether the repository uses the  
   [`dgaida/auto-version-action`](https://github.com/dgaida/auto-version-action).
