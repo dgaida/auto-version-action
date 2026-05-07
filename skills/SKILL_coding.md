@@ -40,7 +40,7 @@ not applicable (e.g., no tests exist at all → still flag this under Testing).
 - Identify misplaced files, overly large modules, or unclear boundaries  
 - Suggest a clearer, more scalable structure if applicable  
 - Flag dead code, unused files, or obsolete folders  
-- Ensure an `AGENTS.md` file is present in the repository root to provide instructions for AI agents, including a mandatory directive to delete all temporary files (e.g., coverage reports, logs) before creating a pull request or submitting changes.
+- Ensure an `AGENTS.md` file is present in the repository root to provide instructions for AI agents, including a mandatory directive to delete all temporary files (e.g., coverage reports, logs) before creating a pull request or submitting changes.  
 
 ### 2. Code Quality & Maintainability
 
@@ -76,7 +76,7 @@ not applicable (e.g., no tests exist at all → still flag this under Testing).
 
 - Review CI/CD setup (if present)  
 - Suggest improvements for linting, formatting, static analysis, and test automation  
-- Ensure a "tests" GitHub Action is generated, which must include steps for creating and uploading a code coverage report (e.g., using Codecov).
+- Ensure a "tests" GitHub Action is generated, which must include steps for creating and uploading a code coverage report (e.g., using Codecov).  
 - Identify missing quality gates  
 - **auto-version & badges**: Check whether the repository uses the  
   [`dgaida/auto-version-action`](https://github.com/dgaida/auto-version-action).
