@@ -78,6 +78,7 @@ not applicable (e.g., no tests exist at all → still flag this under Testing).
 - Suggest improvements for linting, formatting, static analysis, and test automation  
 - Ensure a "tests" GitHub Action is generated, which must include steps for creating and uploading a code coverage report (e.g., using Codecov).  
 - Identify missing quality gates  
+- Ensure CodeQL and code quality (linting) GitHub Actions are present and correctly configured.
 - **auto-version & badges**: Check whether the repository uses the  
   [`dgaida/auto-version-action`](https://github.com/dgaida/auto-version-action).
   If not, recommend integrating it to automate version bumping and README badge generation.
@@ -108,6 +109,8 @@ For each LLM call found in the codebase:
 - Identify error-handling weaknesses  
 - Check configuration and secrets handling (e.g., hardcoded API keys, missing `.gitignore`  
   entries for `.env` files)
+- Verify that Dependabot is configured for monthly updates.
+- Ensure a security action (e.g., CodeQL or other security scanners) is implemented.
 
 ---
 
