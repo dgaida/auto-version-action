@@ -78,7 +78,12 @@ jobs:
           if [[ ${{ github.ref }} == refs/tags/* ]]; then
             VERSION=${GITHUB_REF#refs/tags/}
             mike deploy --push --update-aliases $VERSION latest
+            mike set-default --push latest
           elif [[ ${{ github.ref }} == refs/heads/main || ${{ github.ref }} == refs/heads/master ]]; then
             mike deploy --push --update-aliases dev
+            if mike list | grep -q "latest"; then
+              mike set-default --push latest
+            else
+              mike set-default --push dev
+            fi
           fi
-          mike set-default --push latest || true
