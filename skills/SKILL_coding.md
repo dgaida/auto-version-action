@@ -54,12 +54,12 @@ not applicable (e.g., no tests exist at all → still flag this under Testing).
 
 - Review README quality and completeness  
 - Identify missing or outdated documentation  
-- Check docstrings/comments for presence, accuracy, consistency, and style  
+- Check docstrings/comments for presence, accuracy, consistency, and style. Ensure Google-style docstrings and type definitions (type hints) are present for **all** methods and classes (not just public ones).
 - Suggest improvements to developer onboarding documentation  
 
 ### 4. Type Safety & Interfaces
 
-- Evaluate use of type definitions / annotations  
+- Evaluate use of type definitions / annotations. Ensure type definitions (type hints) are present for **all** methods and classes.
 - Identify missing, incorrect, or overly generic types  
 - Suggest stronger typing where it improves clarity or safety  
 - Highlight public APIs that need clearer contracts  
@@ -77,7 +77,7 @@ not applicable (e.g., no tests exist at all → still flag this under Testing).
 - Review CI/CD setup (if present)  
 - Suggest improvements for linting, formatting, static analysis, and test automation  
 - Ensure a "tests" GitHub Action is generated, which must include steps for creating and uploading a code coverage report (e.g., using Codecov).  
-- Identify missing quality gates  
+- Identify missing quality gates. Ensure a documentation coverage check GitHub Action (e.g., using `interrogate`) is present and configured.
 - Ensure CodeQL and code quality (linting) GitHub Actions are present and correctly configured.  
 - **auto-version & badges**: Check whether the repository uses the  
   [`dgaida/auto-version-action`](https://github.com/dgaida/auto-version-action).
