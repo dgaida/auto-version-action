@@ -245,10 +245,12 @@ Provide the complete CI step and the metrics page template.
 Provide complete setup for `mike`:
 
 ```bash
-# Initial setup
+# Initial setup (run once locally to initialize gh-pages and default redirect)
 mike deploy --push --update-aliases 1.0 latest
 mike set-default --push latest
 ```
+
+> **Crucial:** The `mike set-default` command is mandatory. It creates the root `index.html` on the `gh-pages` branch. Without it, the root URL of your GitHub Pages site will return a **404 error**. Ensure that GitHub Pages is configured to deploy from the `gh-pages` branch in the repository settings.
 
 **`docs/de/development/versioning.md`** and **`docs/en/development/versioning.md`**:  
 - How to deploy a new version on release  
@@ -288,7 +290,23 @@ The pipeline must execute **in this order**:
 6. ✅ Collect and write `metrics.json`  
 7. ✅ Generate/update `CHANGELOG.md` (on tag push only)  
 8. ✅ Build MkDocs (`mkdocs build --strict`)  
-9. ✅ Deploy with `mike` (on push to `main` or tag, not on PRs)  
+9. ✅ Deploy with `mike` (on push to `main` or tag, not on PRs).
+   Use a robust deployment script that handles default versioning to avoid 404s:
+   ```bash
+   if [[ ${{ github.ref }} == refs/tags/* ]]; then
+     VERSION=${GITHUB_REF#refs/tags/}
+     mike deploy --push --update-aliases $VERSION latest
+     mike set-default --push latest
+   elif [[ ${{ github.ref }} == refs/heads/main || ${{ github.ref }} == refs/heads/master ]]; then
+     mike deploy --push --update-aliases dev
+     # Ensure a default is set; prefer 'latest', fall back to 'dev'
+     if mike list | grep -q "latest"; then
+       mike set-default --push latest
+     else
+       mike set-default --push dev
+     fi
+   fi
+   ```
 
 Use caching for `pip` and `npm` (for markdownlint). Provide the **complete** YAML — no
 `# TODO` comments, no placeholders.
