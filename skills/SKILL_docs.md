@@ -290,7 +290,7 @@ The pipeline must execute **in this order**:
 6. ✅ Collect and write `metrics.json`  
 7. ✅ Generate/update `CHANGELOG.md` (on tag push only)  
 8. ✅ Build MkDocs (`mkdocs build --strict`)  
-9. ✅ Deploy with `mike` (on push to `main` or tag, not on PRs).
+9. ✅ Deploy with `mike` (on push to `main` or tag, not on PRs).  
    Use a robust deployment script that handles default versioning to avoid 404s:
    ```bash
    if [[ ${{ github.ref }} == refs/tags/* ]]; then
