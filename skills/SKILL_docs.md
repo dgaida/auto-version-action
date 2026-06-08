@@ -285,7 +285,7 @@ The pipeline must execute **in this order**:
 1. ✅ Checkout + Python setup with dependency caching  
 2. ✅ Run tests (`pytest`)  
 3. ✅ Check API doc coverage (`interrogate`, fail below threshold)  
-4. ✅ Lint Markdown (`markdownlint-cli2-action`)
+4. ✅ Lint Markdown (`markdownlint-cli2-action`)  
 5. ✅ Check broken links  
 6. ✅ Collect and write `metrics.json`  
 7. ✅ Generate/update `CHANGELOG.md` (on tag push only)  
