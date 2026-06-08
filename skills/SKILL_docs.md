@@ -229,7 +229,7 @@ Create a `docs/de/metrics.md` and `docs/en/metrics.md` page that visualizes:
 |---|---|---|
 | API doc coverage | `interrogate` badge | Every CI run |
 | Broken links | `mkdocs-linkcheck` or `lychee` | Every CI run |
-| Markdown lint errors | `markdownlint` | Every CI run |
+| Markdown lint errors | `markdownlint-cli2-action` | Every CI run |
 | Build warnings | MkDocs stderr capture | Every CI run |
 | Changelog freshness | Last commit to `CHANGELOG.md` | Every CI run |
 
@@ -285,7 +285,7 @@ The pipeline must execute **in this order**:
 1. ✅ Checkout + Python setup with dependency caching  
 2. ✅ Run tests (`pytest`)  
 3. ✅ Check API doc coverage (`interrogate`, fail below threshold)  
-4. ✅ Lint Markdown (`markdownlint`)  
+4. ✅ Lint Markdown (`markdownlint-cli2-action`)
 5. ✅ Check broken links  
 6. ✅ Collect and write `metrics.json`  
 7. ✅ Generate/update `CHANGELOG.md` (on tag push only)  
@@ -308,7 +308,7 @@ The pipeline must execute **in this order**:
    fi
    ```
 
-Use caching for `pip` and `npm` (for markdownlint). Provide the **complete** YAML — no
+Use caching for `pip`. Provide the **complete** YAML — no
 `# TODO` comments, no placeholders.
 
 ---
