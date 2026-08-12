@@ -1,5 +1,5 @@
 name: 'Auto Version and Badges'
-description: 'Increments version in pyproject.toml, creates a git tag, and adds badges to README.md'
+description: 'Increments version in pyproject.toml or package.json, creates a git tag, and adds badges to README.md'
 author: 'Daniel Gaida'
 inputs:
   github-token:
@@ -60,6 +60,9 @@ runs:
         if [ -f "pyproject.toml" ]; then
           git add pyproject.toml
         fi
+        if [ -f "package.json" ]; then
+          git add package.json
+        fi
         if [ -f "README.md" ]; then
           git add "*.md"
         fi
@@ -69,8 +72,14 @@ runs:
           git pull --rebase origin ${{ github.event.pull_request.base.ref || github.ref_name }}
           git push origin ${{ github.event.pull_request.base.ref || github.ref_name }}
 
-          if [ "${{ inputs.auto-version }}" == "true" ] && [ -f "pyproject.toml" ]; then
-            NEW_VERSION=$(python3 -c 'import tomllib; print(tomllib.load(open("pyproject.toml", "rb"))["project"]["version"])')
+          if [ "${{ inputs.auto-version }}" == "true" ]; then
+            NEW_VERSION=""
+            if [ -f "pyproject.toml" ]; then
+              NEW_VERSION=$(python3 -c 'import tomllib; print(tomllib.load(open("pyproject.toml", "rb"))["project"]["version"])')
+            elif [ -f "package.json" ]; then
+              NEW_VERSION=$(python3 -c 'import json; print(json.load(open("package.json"))["version"])')
+            fi
+
             if [ -n "$NEW_VERSION" ]; then
               if ! git rev-parse "v$NEW_VERSION" >/dev/null 2>&1; then
                 git tag v$NEW_VERSION
