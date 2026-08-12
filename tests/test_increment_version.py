@@ -1,11 +1,12 @@
-import unittest
-from unittest.mock import patch, mock_open
-import sys
 import os
+import sys
+import unittest
+from unittest.mock import mock_open, patch
 
 # Add the directory to sys.path to import the script
 sys.path.append(os.path.join(os.getcwd(), "auto-version"))
 import increment_version
+
 
 class TestIncrementVersion(unittest.TestCase):
     @patch("os.path.exists")

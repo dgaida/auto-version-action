@@ -5,6 +5,7 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'md-list-fixer'))
 from fix_md_lists import fix_markdown_file
 
+
 def test_fix_markdown_file(tmp_path):
     d = tmp_path / "test_dir"
     d.mkdir()

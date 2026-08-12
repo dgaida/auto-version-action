@@ -2,6 +2,7 @@
 import os
 import re
 
+
 def fix_markdown_file(filepath) -> bool:
     """Ensures Markdown list items end with two spaces for line breaks.
 
@@ -87,7 +88,7 @@ def main():
         try:
             if fix_markdown_file(filepath):
                 print(f"Fixed {filepath}")
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             print(f"Error processing {filepath}: {e}")
 
 if __name__ == "__main__":

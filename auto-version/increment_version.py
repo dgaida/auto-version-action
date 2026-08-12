@@ -1,8 +1,9 @@
 """Script to automatically increment the version in pyproject.toml or package.json."""
+import json
 import os
 import re
 import sys
-import json
+
 
 def increment_version_string(version_str: str) -> str:
     """Increments the patch version in a version string formatted as X.Y.Z.
@@ -42,7 +43,7 @@ def detect_json_indent(content: str) -> str:
         The detected indent sequence (e.g., "  ", "    ", or "\\t").
     """
     for line in content.splitlines():
-        if line.startswith(" ") or line.startswith("\t"):
+        if line.startswith((" ", "\t")):
             indent = ""
             for char in line:
                 if char in (" ", "\t"):
@@ -108,7 +109,10 @@ def increment_package_json(filepath: str) -> bool:
 
     try:
         data = json.loads(content)
-    except Exception as e:
+        if not isinstance(data, dict):
+            print("Error: package.json is not a valid JSON object")
+            return False
+    except json.JSONDecodeError as e:
         print(f"Error parsing package.json: {e}")
         return False
 
