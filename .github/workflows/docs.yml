@@ -39,7 +39,7 @@ jobs:
           echo "API_COVERAGE=$COVERAGE" >> $GITHUB_ENV
 
       - name: Lint Markdown
-        uses: davidanson/markdownlint-cli2-action@v16
+        uses: davidanson/markdownlint-cli2-action@v23
         continue-on-error: true
         with:
           globs: '**/*.md'
