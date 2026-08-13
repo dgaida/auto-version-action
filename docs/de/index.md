@@ -12,8 +12,8 @@ Willkommen zur Dokumentation der **Auto Version Action**. Diese Sammlung von Git
 
 ## Hauptfunktionen
 
-- **Auto Versioning**: Inkrementiert die Version in `pyproject.toml` und erstellt Git-Tags.  
-- **Add Badges**: Erkennt Repository-Features und fügt automatisch Badges zur `README.md` hinzu.  
+- **Auto Versioning**: Inkrementiert die Version in `pyproject.toml` oder `package.json` und erstellt Git-Tags. Die bestehende JSON-Formatierung und -Einrückung wird automatisch beibehalten.
+- **Add Badges**: Erkennt Repository-Features und fügt automatisch Badges zur `README.md` hinzu. Es unterstützt sowohl `pyproject.toml` als auch `package.json` für die Versions- und Badge-Erkennung.
 - **Markdown List Fixer**: Korrigiert Formatierungsfehler in Markdown-Listen für eine bessere Darstellung.  
 
 ## Schnellstart
