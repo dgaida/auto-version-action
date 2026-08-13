@@ -4,7 +4,7 @@ This guide will help you integrate the Auto Version Action into your repository.
 
 ## Prerequisites
 
-- A project with a `pyproject.toml` (for Python projects) or a `package.json` (for TypeScript/JavaScript/Node.js projects).
+- A project with a `pyproject.toml` (for Python projects) or a `package.json` (for TypeScript/JavaScript/Node.js projects).  
 - GitHub Actions are enabled.  
 
 ## Setup

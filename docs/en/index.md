@@ -12,8 +12,8 @@ Welcome to the **Auto Version Action** documentation. This collection of GitHub 
 
 ## Key Features
 
-- **Auto Versioning**: Increments the version in `pyproject.toml` or `package.json` and creates Git tags. It automatically detects and preserves existing JSON formatting/indentation.
-- **Add Badges**: Detects repository features and automatically adds badges to `README.md`. It supports both `pyproject.toml` and `package.json` for version/badge detection.
+- **Auto Versioning**: Increments the version in `pyproject.toml` or `package.json` and creates Git tags. It automatically detects and preserves existing JSON formatting/indentation.  
+- **Add Badges**: Detects repository features and automatically adds badges to `README.md`. It supports both `pyproject.toml` and `package.json` for version/badge detection.  
 - **Markdown List Fixer**: Fixes formatting errors in Markdown lists for better rendering.  
 
 ## Quick Start
