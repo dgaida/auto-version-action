@@ -1,12 +1,13 @@
-import unittest
-from unittest.mock import patch, MagicMock
-import os
 import json
+import os
 import sys
+import unittest
+from unittest.mock import MagicMock, patch
 
 # Add current directory to path so add_badges can be imported
 sys.path.append(os.getcwd())
 import add_badges
+
 
 class TestVersionBadgeLogic(unittest.TestCase):
 
