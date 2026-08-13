@@ -1,8 +1,9 @@
 """Script to automatically detect and add badges to README.md."""
+import json
 import os
 import re
 import urllib.request
-import json
+
 
 def get_repo_info() -> tuple[str, str]:
     """Gets the repository owner and name from environment variables.
@@ -36,7 +37,7 @@ def detect_version() -> str | None:
             with open("pyproject.toml", "rb") as f:
                 data = tomllib.load(f)
                 return data.get("project", {}).get("version")
-        except (ImportError, Exception):
+        except (ImportError, Exception):  # noqa: BLE001
             try:
                 with open("pyproject.toml", "r") as f:
                     current_section = None
@@ -48,14 +49,14 @@ def detect_version() -> str | None:
                             match = re.search(r'version = "(.*?)"', line)
                             if match:
                                 return match.group(1)
-            except Exception:
+            except Exception:  # noqa: BLE001, S110
                 pass
     if os.path.exists("package.json"):
         try:
             with open("package.json", "r") as f:
                 data = json.load(f)
                 return data.get("version")
-        except Exception:
+        except Exception:  # noqa: BLE001, S110
             pass
     return None
 
@@ -73,7 +74,7 @@ def detect_python_version() -> str | None:
                 if match:
                     v = match.group(1).replace(">=", "").replace(">", "").strip()
                     return f"{v}+"
-        except Exception:
+        except Exception:  # noqa: BLE001, S110
             pass
     return None
 
@@ -98,7 +99,7 @@ def has_mit_license() -> bool:
                     content = file.read()
                     if "MIT License" in content or "MIT LICENSE" in content:
                         return True
-            except Exception:
+            except Exception:  # noqa: BLE001, S110
                 pass
     return False
 
@@ -117,7 +118,7 @@ def uses_codecov() -> bool:
                     with open(os.path.join(".github/workflows", f), "r") as file:
                         if "codecov/codecov-action" in file.read():
                             return True
-        except Exception:
+        except Exception:  # noqa: BLE001, S110
             pass
     return False
 
@@ -143,7 +144,7 @@ def uses_black() -> bool:
             with open("pyproject.toml", "r") as f:
                 if "[tool.black]" in f.read():
                     return True
-        except Exception:
+        except Exception:  # noqa: BLE001, S110
             pass
     return False
 
@@ -158,7 +159,7 @@ def uses_ruff() -> bool:
             with open("pyproject.toml", "r") as f:
                 if "[tool.ruff]" in f.read():
                     return True
-        except Exception:
+        except Exception:  # noqa: BLE001, S110
             pass
     return os.path.exists("ruff.toml") or os.path.exists(".ruff.toml")
 
@@ -178,7 +179,7 @@ def has_github_pages(owner, name) -> bool:
         with urllib.request.urlopen(req, timeout=2) as resp:
             if resp.status == 200:
                 return True
-    except Exception:
+    except Exception:  # noqa: BLE001, S110
         pass
     return os.path.exists("docs/") or os.path.exists("mkdocs.yml")
 
@@ -202,7 +203,7 @@ def has_tags(owner, name) -> bool:
         with urllib.request.urlopen(req, timeout=5) as response:
             tags = json.loads(response.read().decode())
             return isinstance(tags, list) and len(tags) > 0
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         print(f"Error checking tags for {owner}/{name}: {e}")
         return False
 

@@ -34,7 +34,7 @@ Automatically detects repository features and adds relevant badges to your `READ
 Ensures that Markdown list items and the lines preceding them end with two spaces. This ensures that they are correctly rendered with a line break in many Markdown viewers.
 
 ### 2. Auto Versioning
-Increments the version number in `pyproject.toml` (patch level, with overflow to minor and major) and creates a corresponding Git tag.
+Increments the version number in `pyproject.toml` or `package.json` (patch level, with overflow to minor and major) and creates a corresponding Git tag. It preserves existing formatting and indentation (e.g., spaces or tabs) in `package.json`.
 
 ---
 

@@ -1,6 +1,8 @@
 import unittest
-from unittest.mock import patch, mock_open
+from unittest.mock import mock_open, patch
+
 import add_badges
+
 
 class TestAddBadges(unittest.TestCase):
     @patch("os.path.exists")

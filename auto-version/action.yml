@@ -1,5 +1,5 @@
 name: 'Auto Versioning Action'
-description: 'Increments version in pyproject.toml and creates a git tag'
+description: 'Increments version in pyproject.toml or package.json and creates a git tag'
 author: 'Daniel Gaida'
 inputs:
   run-on-push:
@@ -25,13 +25,27 @@ runs:
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git add pyproject.toml
+
+        if [ -f "pyproject.toml" ]; then
+          git add pyproject.toml
+        elif [ -f "package.json" ]; then
+          git add package.json
+        fi
+
         git commit -m "chore: increment version [skip ci]"
         git pull --rebase origin ${{ github.event.pull_request.base.ref || github.ref_name }}
         git push origin ${{ github.event.pull_request.base.ref || github.ref_name }}
         
         # Extract new version and create tag
-        NEW_VERSION=$(python3 -c 'import tomllib; print(tomllib.load(open("pyproject.toml", "rb"))["project"]["version"])')
-        git tag v$NEW_VERSION
-        git push origin v$NEW_VERSION
+        NEW_VERSION=""
+        if [ -f "pyproject.toml" ]; then
+          NEW_VERSION=$(python3 -c 'import tomllib; print(tomllib.load(open("pyproject.toml", "rb"))["project"]["version"])')
+        elif [ -f "package.json" ]; then
+          NEW_VERSION=$(python3 -c 'import json; print(json.load(open("package.json"))["version"])')
+        fi
+
+        if [ -n "$NEW_VERSION" ]; then
+          git tag v$NEW_VERSION
+          git push origin v$NEW_VERSION
+        fi
       shell: bash
